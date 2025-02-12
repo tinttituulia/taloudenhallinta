@@ -1,3 +1,4 @@
+import Settings from '../Settings'
 import Stats from '../Stats'
 import styles from './App.module.scss'
 import Button from '../../shared/buttons'
@@ -18,9 +19,7 @@ function App() {
       <ButtonContainer>
       <div className={styles.app}>
         <Header />
-        <Content>
-        <Stats />
-        </Content>
+        <Settings />
         <Menu />
       </div>
       </ButtonContainer>
