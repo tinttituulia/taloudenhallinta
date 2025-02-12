@@ -1,3 +1,4 @@
+import Stats from '../Stats'
 import styles from './App.module.scss'
 import Button from '../../shared/buttons'
 import Content from '../Content'
@@ -18,7 +19,7 @@ function App() {
       <div className={styles.app}>
         <Header />
         <Content>
-         <Items /> 
+        <Stats />
         </Content>
         <Menu />
       </div>
