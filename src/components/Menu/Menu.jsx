@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styles from './Menu.module.scss'
 import { MdViewList } from 'react-icons/md'
 import { MdTimeline } from 'react-icons/md'
@@ -8,9 +9,9 @@ function Menu() {
 
   return (
     <div className={styles.menu}>
-      <div><MdViewList /></div>
-      <div><MdTimeline /></div>
-      <div><MdSettings /></div>
+      <div><NavLink to=""><MdViewList /></NavLink></div>
+      <div><NavLink to="/stats"><MdTimeline /></NavLink></div>
+      <div><NavLink to="/settings"><MdSettings /></NavLink></div>
     </div>
   )
 

@@ -13,4 +13,11 @@
     display: flex;
     align-items: center;
   } 
+  .menu a {
+    color: $color-neutral-light;
+  
+    &:global.active {
+      color: $color-neutral-lightest;
+    }
+  }
   
