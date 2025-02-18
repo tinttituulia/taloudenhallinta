@@ -9,9 +9,11 @@ import { useNavigate } from 'react-router-dom'
 function ItemForm(props) {
 const navigate = useNavigate()
 const submit = () => {
-        console.log(values)
-        alert("SUBMIT")
-      }    
+  let storedValues = Object.assign({}, values)
+  storedValues.amount = parseFloat(storedValues.amount)
+  props.onItemSubmit(storedValues)
+  navigate(-1)
+}
 const initialState = {
     type: "",
     amount: 0,
