@@ -75,7 +75,14 @@ const initialState = props.formData ? props.formData : {
               <Button onClick={handleCancel}>PERUUTA</Button>
             </div>
             <div>
-              <Button primary type='submit'>{ props.formData ? "TALLENNA" : "LISÄÄ" }</Button>
+            <Button primary
+                      disabled={values.type &&
+                                values.amount &&
+                                values.paymentDate &&
+                                values.receiver ? "" : "disabled"}
+                      type='submit'>
+                { props.formData ? "TALLENNA" : "LISÄÄ" }
+              </Button>
             </div>
           </div>
         </div>
