@@ -1,11 +1,13 @@
 import styles from './ItemForm.module.scss'
 import useForm from '../../shared/useform/useform'
 import Button from '../../shared/buttons'
+import { useNavigate } from 'react-router-dom'
+
 
 
 
 function ItemForm(props) {
-
+const navigate = useNavigate()
 const submit = () => {
         console.log(values)
         alert("SUBMIT")
@@ -20,7 +22,7 @@ const initialState = {
   }
   const {values, handleChange, handleSubmit } = useForm(submit, initialState, false)
   const handleCancel = () => {
-    alert('CANCEL') 
+    navigate(-1)
   }
 
   return (
