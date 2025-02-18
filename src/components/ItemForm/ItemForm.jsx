@@ -28,6 +28,10 @@ const initialState = props.formData ? props.formData : {
   const handleCancel = () => {
     navigate(-1)
   }
+  const handleDelete = () => {
+    props.onItemDelete(values.id)
+    navigate(-1)
+  }
 
   return (
     <div>
@@ -85,6 +89,14 @@ const initialState = props.formData ? props.formData : {
               </Button>
             </div>
           </div>
+          { props.onItemDelete ? 
+            <div className={styles.itemform_row}>
+              <div>
+                <Button secondary onClick={handleDelete}>POISTA</Button>
+              </div>
+              <div></div>
+            </div>
+            : null }
         </div>
        </form>
     </div>
