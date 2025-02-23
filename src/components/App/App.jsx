@@ -2,7 +2,7 @@ import AppRouter from '../AppRouter'
 import { useState } from 'react'
 import useLocalStorage from '../../shared/uselocalstorage'
 import firebase from './firebase.js'
-import { collection, deleteDoc, doc, getFirestore, onSnapshot, setDoc  } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getFirestore, onSnapshot, orderBy, query, setDoc  } from 'firebase/firestore'
 import { useEffect } from 'react'
 
 
@@ -20,12 +20,14 @@ const handleTypeSubmit = (type) => {
   const [typelist, setTypelist] = useLocalStorage('taloudenhallinta-typelist',[])
   const firestore = getFirestore(firebase)
   useEffect( () => {
-    const unsubscribe = onSnapshot(collection(firestore,'item'), snapshot => {
+    const unsubscribe = onSnapshot(query(collection(firestore,'item'),
+                                         orderBy('paymentDate', 'desc')),
+                                   snapshot => {
       const newData = []
       snapshot.forEach( doc => {
         newData.push({ ...doc.data(), id: doc.id })
       })
-      setData(newData)    
+      setData(newData)
     })
     return unsubscribe
   }, [])
