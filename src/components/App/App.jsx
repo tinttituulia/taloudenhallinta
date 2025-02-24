@@ -6,6 +6,7 @@ import { addDoc, collection, deleteDoc, doc, getFirestore, onSnapshot, orderBy, 
 import { useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import Startup from '../Startup'
+import testdata from './testdata.js'
 
 
 
@@ -78,6 +79,7 @@ return (
                   onTypeSubmit={handleTypeSubmit}
                   auth={auth}
                   user={user} />
+              : <Startup auth={auth} />
 
   </>
 )

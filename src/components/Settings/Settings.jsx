@@ -19,6 +19,7 @@ function Settings(props) {
   return (
     <div className={styles.settings}>
       <h2>Asetukset</h2>
+
       <h3>Profiili</h3>
       <div className={styles.settings_profile}>
         <div className={styles.settings_user}>
@@ -30,6 +31,7 @@ function Settings(props) {
           <Button primary onClick={logout}>Kirjaudu ulos</Button>
         </div>
       </div>
+      
       <h3>Kulutyypit</h3>
       <div className={styles.settings_types}>
         { props.typelist.map(
