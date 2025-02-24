@@ -20,45 +20,54 @@ function App() {
   const firestore = getFirestore(firebase)
 
   useEffect( () => {
-    const unsubscribe = onSnapshot(query(collection(firestore,'item'),
-                                         orderBy('paymentDate', 'desc')),
-                                   snapshot => {
-      const newData = []
-      snapshot.forEach( doc => {
-        newData.push({ ...doc.data(), id: doc.id })
+    if (user) {
+      const unsubscribe = onSnapshot(query(collection(firestore,`user/${user.uid}/item`),
+                                           orderBy('paymentDate', 'desc')),
+                                     snapshot => {
+        const newData = []
+        snapshot.forEach( doc => {
+          newData.push({ ...doc.data(), id: doc.id })
+        })
+        setData(newData)
       })
-      setData(newData)
-    })
-    return unsubscribe
-  }, [])
+      return unsubscribe
+    } else {
+      setData([])
+    }
+  }, [user])
+
 
   useEffect( () => {
-    const unsubscribe = onSnapshot(query(collection(firestore,'type'),
-                                         orderBy('type')),
-                                   snapshot => {
-      const newTypelist = []
-      snapshot.forEach( doc => {
-        newTypelist.push(doc.data().type)
+    if (user) {
+      const unsubscribe = onSnapshot(query(collection(firestore,`user/${user.uid}/type`),
+                                           orderBy('type')),
+                                     snapshot => {
+        const newTypelist = []
+        snapshot.forEach( doc => {
+          newTypelist.push(doc.data().type)
+        })
+        setTypelist(newTypelist)
       })
-      setTypelist(newTypelist)
-    })
-    return unsubscribe
-  }, [])
-  
+      return unsubscribe
+    } else {
+      setTypelist([])
+    }
+  }, [user])
+
   useEffect( () => {
     onAuthStateChanged(auth, user => {
       setUser(user)
     })
   }, [])
 
-const handleTypeSubmit = async (type) => {
-    await addDoc(collection(firestore,'type'),{type: type})
+  const handleTypeSubmit = async (type) => {
+    await addDoc(collection(firestore,`user/${user.uid}/type`),{type: type})
   }
-const handleItemSubmit = async (newitem) => {
-  await setDoc(doc(firestore, 'item', newitem.id), newitem)
-}
+  const handleItemSubmit = async (newitem) => {
+    await setDoc(doc(firestore, `user/${user.uid}/item`, newitem.id), newitem)
+  }
 const handleItemDelete = async (id) => {
-  await deleteDoc(doc(firestore, 'item', id))
+  await deleteDoc(doc(firestore, `user/${user.uid}/item`, id))
 }
 return (
   <>
