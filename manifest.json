@@ -1,6 +1,6 @@
 {
-  "name": "Taloudenhallinta",
-  "short_name": "Talous",
+  "name": "Uinnin seuranta",
+  "short_name": "Uinti",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

@@ -7,12 +7,10 @@ describe('Item', () => {
     // Määritellään merkinnän tiedot.
     const data = {
       id:          "1",
-      type:        "Sähkö",
-      amount:      437.50,
-      paymentDate: "2023-03-20",
-      periodStart: "2022-12-01",
-      periodEnd:   "2023-02-28",
-      receiver:    "Caruna Oy"      
+      type:        "Avovesi",
+      distance:      4.50,
+      swimDate: "2023-03-20",
+      receiver:    "Usmin järvi"      
     }
     render(<Item data={data} />, {wrapper: BrowserRouter})
     
@@ -23,9 +21,9 @@ describe('Item', () => {
     const typeElement = screen.getByText(data.type)
     expect(typeElement).toBeInTheDocument()
 
-    // Maksupäivä
-    const paymentDate = new Date(data.paymentDate).toLocaleDateString(locale)
-    const dateElement = screen.getByText(paymentDate)
+    // Uintipäivä
+    const swimDate = new Date(data.swimDate).toLocaleDateString(locale)
+    const dateElement = screen.getByText(swimDate)
     expect(dateElement).toBeInTheDocument() 
 
     // Saaja

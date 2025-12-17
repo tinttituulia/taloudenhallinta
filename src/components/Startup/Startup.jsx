@@ -25,9 +25,9 @@ function Startup (props) {
 
   return (
     <div className={styles.startup}>
-      <h1>Taloudenhallinta</h1>
-      <div>Tervetuloa käyttämään taloudenhallintasovellusta,
-           jolla voi seurata omia menoja.</div>
+      <h1>Uinnin seuranta</h1>
+      <div>Tervetuloa käyttämään uinninseurantasovellusta,
+           jolla voi seurata uituja matkoja.</div>
       <Button onClick={signInGoogle}>Kirjaudu Google-tunnuksilla</Button>
     </div>
   )

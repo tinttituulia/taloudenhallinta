@@ -1,57 +1,44 @@
 const testdata = [
     {
       id:          "1",
-      type:        "Sähkö",
-      amount:      437.50,
-      paymentDate: "2023-03-20",
-      periodStart: "2022-12-01",
-      periodEnd:   "2023-02-28",
-      receiver:    "Caruna Oy"
+      type:        "Avovesi",
+      distance:      4.50,
+      swimDate: "2023-03-20",
+      receiver:    "Usmin järvi"
     },
     {
-      id:          "2",
-      type:        "Puhelin",
-      amount:      26.90,
-      paymentDate: "2023-03-18",
-      periodStart: "",
-      periodEnd:   "",
-      receiver:    "Elisa"
+      id:          "Allasharjoitus",
+      distance:      6.90,
+      swimDate: "2023-03-18",
+      receiver:    "Sveitsin uimala"
     },
     {
       id:          "3",
-      type:        "Sähkö",
-      amount:      87.90,
+      type:        "Allasharjoitus",
+      amount:      2.90,
       paymentDate: "2023-02-28",
-      periodStart: "",
-      periodEnd:   "",
-      receiver:    "Helen"
+      receiver:    "Riihimäen uimahalli"
     },  
     {
       id:          "4",
-      type:        "Vesi",
-      amount:      352.00,
+      type:        "Avovesi",
+      amount:      5.00,
       paymentDate: "2023-02-17",
-      periodStart: "2022-09-01",
-      periodEnd:   "2022-12-31",
-      receiver:    "Sastamalan vesilaitos"
+      receiver:    "Näsijärvi"
     },
     {
       id:          "5",
-      type:        "Puhelin",
-      amount:      26.90,
+      type:        "Avovesi",
+      amount:      6.90,
       paymentDate: "2023-02-17",
-      periodStart: "",
-      periodEnd:   "",
-      receiver:    "Elisa"
+      receiver:    "Puujoki"
     },
     {
       id:          "6",
-      type:        "Vero",
-      amount:      178.54,
+      type:        "Allasharjoitus",
+      amount:      3.50,
       paymentDate: "2023-02-16",
-      periodStart: "2023-01-01",
-      periodEnd:   "2023-12-31",
-      receiver:    "Verovirasto"
+      receiver:    "Sveitsin uimala"
     } 
   ]
   

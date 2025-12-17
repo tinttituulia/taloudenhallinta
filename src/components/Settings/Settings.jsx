@@ -32,7 +32,7 @@ function Settings(props) {
         </div>
       </div>
       
-      <h3>Kulutyypit</h3>
+      <h3>Allasuinti vai avovesimatka - lisää tunniste:</h3>
       <div className={styles.settings_types}>
         { props.typelist.map(
             type => <div key={type}>{type}</div>

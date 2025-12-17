@@ -1,80 +1,104 @@
 import styles from './Stats.module.scss'
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { LabelList, Legend, Pie, PieChart } from 'recharts'
-import { Cell } from 'recharts'
+import { Line,LineChart,ResponsiveContainer,Tooltip, XAxis, YAxis,Legend, Pie, PieChart, Cell, LabelList
+} from 'recharts'
 import randomColor from 'randomcolor'
-
-
-
 
 function Stats(props) {
 
+  if (!props.data || props.data.length === 0) {
+    return <p>Ei tilastodataa</p>
+  }
+
   const locale = "fi-FI"
-  const numberFormat = new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' })
-  
-  const linedata = props.data.map(
-    (item) => ({
-      date: new Date(item.paymentDate).getTime(),
-      amount: item.amount
-    })
-  )
+  const numberFormat = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+
+  //  Aikajanan data (km)
+  const linedata = props.data.map(item => ({
+    date: new Date(item.swimDate).getTime(),
+    distance: Number(item.distance),
+    type: item.type
+  }))
+
+  //  Ympyrädiagrammi: kilometrit tyypeittäin
   const reducer = (resultData, item) => {
-    // Selvitetään löytyykö käsittelyn alla olevan alkion kulutyyppi
-    // jo tulostaulukosta.
-    const index = resultData.findIndex(arrayItem => arrayItem.type === item.type)
+    const index = resultData.findIndex(
+      arrayItem => arrayItem.type === item.type
+    )
+
     if (index >= 0) {
-      // Kulutyyppi löytyy tulostaulukosta, kasvatetaan kokonaissummaa.
-      resultData[index].amount = resultData[index].amount + item.amount
+      resultData[index].distance += Number(item.distance)
     } else {
-      // Kulutyyppi ei löytynyt tulostaulukosta, lisätään se sinne.
-      resultData.push({type: item.type, amount: item.amount})
+      resultData.push({
+        type: item.type,
+        distance: Number(item.distance)
+      })
     }
-    // Palautetaan tulostaulukko.
     return resultData
   }
 
   const piedata = props.data.reduce(reducer, [])
-  const piecolors = randomColor({ count: piedata.length, 
-    seed: 'siemenluku', 
-    luminosity: 'dark' })
+
+  const piecolors = randomColor({
+    count: piedata.length,
+    seed: 'siemenluku',
+    luminosity: 'dark'
+  })
 
   return (
     <div className={styles.stats}>
       <h2>Tilastot</h2>
-      <h3>Kulut aikajanalla</h3>
+
+      <h3>Uintimatka aikajanalla (km)</h3>
       <ResponsiveContainer height={350}>
         <LineChart data={linedata}>
-          <Line dataKey='amount' />
-          <XAxis type='number'  
-                 dataKey='date' 
-                 domain={['dataMin','dataMax']}
-                 tickFormatter={
-                   value => new Date(value).toLocaleDateString(locale)
-                 } />
-        <YAxis />    
-        <Tooltip labelFormatter={
-                     value => new Date(value).toLocaleDateString(locale)
-                   }
-                   formatter={
-                     value => [numberFormat.format(value),"maksettu"]
-                   } />     
+          <Line dataKey="distance" />
+          <XAxis
+            type="number"
+            dataKey="date"
+            domain={['dataMin', 'dataMax']}
+            tickFormatter={value =>
+              new Date(value).toLocaleDateString(locale)
+            }
+          />
+          <YAxis unit=" km" />
+          <Tooltip
+            labelFormatter={value =>
+              new Date(value).toLocaleDateString(locale)
+            }
+            formatter={(value, name, props) => [
+              `${numberFormat.format(value)} km`,
+              props.payload.type
+            ]}
+          />
         </LineChart>
       </ResponsiveContainer>
-      <h3>Kulut kulutyypeittäin</h3>
+
+      <h3>Uintimatka tyypeittäin (km)</h3>
       <ResponsiveContainer height={350}>
-      <PieChart>
-          <Pie data={piedata} dataKey='amount' nameKey='type'>
-            <LabelList dataKey='amount' 
-                       position='inside' 
-                       formatter={
-                         value => numberFormat.format(value)
-                       } /> 
-          { piecolors.map( color => <Cell fill={color} key={color} />)}   
+        <PieChart>
+          <Pie data={piedata} dataKey="distance" nameKey="type">
+            <LabelList
+              dataKey="distance"
+              position="inside"
+              formatter={value =>
+                `${numberFormat.format(value)} km`
+              }
+            />
+            {piecolors.map(color => (
+              <Cell key={color} fill={color} />
+            ))}
           </Pie>
           <Legend />
-          <Tooltip formatter={ value => numberFormat.format(value) } />
+          <Tooltip
+            formatter={value =>
+              `${numberFormat.format(value)} km`
+            }
+          />
         </PieChart>
-      </ResponsiveContainer>                  
+      </ResponsiveContainer>
     </div>
   )
 }
